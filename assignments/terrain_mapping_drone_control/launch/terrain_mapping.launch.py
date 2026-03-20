@@ -89,16 +89,19 @@ def generate_launch_description():
         }],
         arguments=[
             # Camera topics (one-way from Gazebo to ROS)
-            '/camera@sensor_msgs/msg/Image[gz.msgs.Image',
-            '/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
+            '/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image@sensor_msgs/msg/Image[gz.msgs.Image',
+            '/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info@sensor_msgs/msg/CameraInfo[gz.msgs.CameraInfo',
+            '/model/x500_gimbal_0/command/gimbal_roll@std_msgs/msg/Float64@gz.msgs.Double',
+            '/model/x500_gimbal_0/command/gimbal_pitch@std_msgs/msg/Float64@gz.msgs.Double',
+            '/model/x500_gimbal_0/command/gimbal_yaw@std_msgs/msg/Float64@gz.msgs.Double',
             # PX4 odometry (one-way from Gazebo to ROS)
-             # Clock and Odometry
-            '/clock@rosgraph_msgs/msg/Clock@gz.msgs.Clock',
-            '/model/x500_depth_mono_0/odometry_with_covariance@nav_msgs/msg/Odometry@gz.msgs.OdometryWithCovariance',
-         ],
+            '/model/x500_gimbal_0/odometry_with_covariance@nav_msgs/msg/Odometry[gz.msgs.Odometry',
+            # Clock (one-way from Gazebo to ROS)
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+        ],
         remappings=[
-            ('/camera', '/drone_camera'),
-            ('/camera_info', '/drone_camera_info'),
+            ('/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/image', '/drone_camera'),
+            ('/world/default/model/x500_gimbal_0/link/camera_link/sensor/camera/camera_info', '/drone_camera_info'),
             ('/model/x500_gimbal_0/odometry_with_covariance', '/fmu/out/vehicle_odometry'),
         ],
         output='screen'
